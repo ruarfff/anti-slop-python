@@ -1,0 +1,422 @@
+{
+  "evaluator_sha256": "6e27f0587978680b92a5b336b055bc7a403244d4831d7ae547291a809423eaae",
+  "import_modes_sha256": "e00d8e3cb476e3620c4c8cf6d8e6a329eb6e69daedd357aee74d4d4c05c0bbbf",
+  "pytest_exit_code": 1,
+  "tests": [
+    {
+      "name": "test_preserves_original_example",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_entire_refactored_directory_passes_policy",
+      "status": "failure",
+      "message": "AssertionError: assert 1 == 0\n +  where 1 = main(['/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate'])"
+    },
+    {
+      "name": "test_demo_output_and_exports_match",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_public_api_parameters_and_demo_values_match",
+      "status": "failure",
+      "message": "ModuleNotFoundError: No module named 'constants'"
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[False]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[True]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-0-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-2-not-a-date]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-3-unknown]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-101]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-NaN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-Infinity]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[customers-1-1- ]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[customers]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[products]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[orders]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_validation_order_preserves_first_failure",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[3]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[4]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[5]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[6]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[7]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[8]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[9]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[10]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[11]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[missing]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[extra]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[short]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_preserves_exports_in_each_import_mode[package]",
+      "status": "failure",
+      "message": "AssertionError: Traceback (most recent call last):\n    File \"<string>\", line 3, in <module>\n      namespace = vars(importlib.import_module(sys.argv[2]))\n                       ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n    File \"/nix/store/k07j8cq0iyvna81qlhwxz8xq6pkz02z8-python3-3.14.7/lib/python3.14/importlib/__init__.py\", line 88, in import_module\n      return _bootstrap._gcd_import(name[level:], package, level)\n             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n    File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n    File \"<frozen importlib._bootstrap>\", line 1342, in _find_and_load_unlocked\n    File \"<frozen importlib._bootstrap>\", line 938, in _load_unlocked\n    File \"<frozen importlib._bootstrap_external>\", line 759, in exec_module\n    File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n    File \"/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/order_report.py\", line 11, in <module>\n      from constants import (\n      ...<6 lines>...\n      )\n  ModuleNotFoundError: No module named 'constants'\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/Users/ruairi/dev/anti-slop-python/.venv/bin/python', '-c', 'import importlib, json, sys\\nsys....odule>\\n    from constants import (\\n    ...<6 lines>...\\n    )\\nModuleNotFoundError: No module named \\'constants\\'\\n').returncode"
+    },
+    {
+      "name": "test_preserves_exports_in_each_import_mode[standalone]",
+      "status": "passed",
+      "message": ""
+    }
+  ],
+  "modules": [
+    {
+      "path": "collation.py",
+      "sha256": "1a81bc8e305e0cece318b944a4e6a4f984e90ba1253904060bf94031bf953f0d",
+      "lines": 74,
+      "parse_error": "",
+      "definitions": [
+        "requested_stock",
+        "stock_alerts",
+        "build_report",
+        "report_total",
+        "report_tax",
+        "report_discounts",
+        "totals_by_customer",
+        "gross_sales_by_category",
+        "units_by_product"
+      ],
+      "imports": [
+        "from collections import Counter",
+        "from collections.abc import Sequence",
+        "from decimal import Decimal",
+        "from constants import ZERO",
+        "from models import Customer, Order, Product, Report, StockAlert",
+        "from pricing import create_invoice"
+      ]
+    },
+    {
+      "path": "constants.py",
+      "sha256": "8a42fbfb4bd3e1c4beefe82e94dc15efb3ab35bf225531c0162d56de59656a21",
+      "lines": 10,
+      "parse_error": "",
+      "definitions": [],
+      "imports": [
+        "from decimal import Decimal"
+      ]
+    },
+    {
+      "path": "demo.py",
+      "sha256": "0484cf518f0e319f84709b677f9acb9e070b6631f25a330fc3ca04dc1c5355bc",
+      "lines": 44,
+      "parse_error": "",
+      "definitions": [
+        "demo_report",
+        "load_report"
+      ],
+      "imports": [
+        "from datetime import date",
+        "from decimal import Decimal",
+        "from pathlib import Path",
+        "from constants import ZERO",
+        "from input_data import load_customers, load_orders, load_products",
+        "from models import Customer, Order, OrderLine, Product, Report",
+        "from collation import build_report"
+      ]
+    },
+    {
+      "path": "exports.py",
+      "sha256": "99ae5503eb505fc7fef60759700d99597e5232fb020822690d106a249fca7ee4",
+      "lines": 85,
+      "parse_error": "",
+      "definitions": [
+        "invoice_csv",
+        "stock_csv",
+        "summary_json",
+        "write_exports"
+      ],
+      "imports": [
+        "import csv",
+        "import io",
+        "import json",
+        "from pathlib import Path",
+        "from models import Report",
+        "from collation import gross_sales_by_category, report_discounts, report_tax, report_total, totals_by_customer, units_by_product",
+        "from presentation import render_report"
+      ]
+    },
+    {
+      "path": "input_data.py",
+      "sha256": "7a56af3efc8e4df2e62f9614761a452b12a7e2385cbd0515a001b7c30104b4e1",
+      "lines": 131,
+      "parse_error": "",
+      "definitions": [
+        "required_text",
+        "parse_integer",
+        "parse_decimal",
+        "read_rows",
+        "parse_customer",
+        "parse_product",
+        "parse_order_line",
+        "group_order_lines",
+        "parse_order",
+        "load_customers",
+        "load_products",
+        "load_orders"
+      ],
+      "imports": [
+        "import csv",
+        "from collections.abc import Sequence",
+        "from datetime import date",
+        "from decimal import Decimal",
+        "from pathlib import Path",
+        "from models import Customer, Order, OrderLine, Product"
+      ]
+    },
+    {
+      "path": "models.py",
+      "sha256": "3ad20d1e87ce99e881e78a2d63ceeb86b5367b1b0055db8ded7f25b4a42ceabe",
+      "lines": 75,
+      "parse_error": "",
+      "definitions": [
+        "Customer",
+        "Product",
+        "OrderLine",
+        "Order",
+        "PricedLine",
+        "Invoice",
+        "StockAlert",
+        "Report"
+      ],
+      "imports": [
+        "from dataclasses import dataclass",
+        "from datetime import date",
+        "from decimal import Decimal"
+      ]
+    },
+    {
+      "path": "order_report.py",
+      "sha256": "b1da1ca7010061041052603c660683594aa262f6a54d54db2b25032b63e9cf45",
+      "lines": 157,
+      "parse_error": "",
+      "definitions": [
+        "main"
+      ],
+      "imports": [
+        "import argparse",
+        "from collections.abc import Sequence",
+        "from pathlib import Path",
+        "from constants import CENT, EXPRESS_SHIPPING, FREE_SHIPPING_THRESHOLD, STANDARD_SHIPPING, TAX_RATE, ZERO",
+        "from demo import demo_report, load_report",
+        "from exports import invoice_csv, stock_csv, summary_json, write_exports",
+        "from input_data import group_order_lines, load_customers, load_orders, load_products, parse_customer, parse_decimal, parse_integer, parse_order, parse_order_line, parse_product, read_rows, required_text",
+        "from models import Customer, Invoice, Order, OrderLine, PricedLine, Product, Report, StockAlert",
+        "from pricing import calculate_discount, calculate_shipping, calculate_subtotal, calculate_tax, create_invoice, money, price_line",
+        "from collation import build_report, gross_sales_by_category, report_discounts, report_tax, report_total, requested_stock, stock_alerts, totals_by_customer, units_by_product",
+        "from presentation import format_money, render_invoice, render_invoice_header, render_invoice_lines, render_invoice_totals, render_report, render_stock_alerts, render_summary"
+      ]
+    },
+    {
+      "path": "presentation.py",
+      "sha256": "67c8724c0c5c9f152daec1de94a16fa44ea9cc8355b307013708cac378887e16",
+      "lines": 73,
+      "parse_error": "",
+      "definitions": [
+        "format_money",
+        "render_invoice_header",
+        "render_invoice_lines",
+        "render_invoice_totals",
+        "render_invoice",
+        "render_stock_alerts",
+        "render_summary",
+        "render_report"
+      ],
+      "imports": [
+        "from decimal import Decimal",
+        "from models import Invoice, Report",
+        "from collation import report_discounts, report_tax, report_total, units_by_product"
+      ]
+    },
+    {
+      "path": "pricing.py",
+      "sha256": "f834e1a442d4454b6da8e7c458bfdde7509e01aa9adcc348d5407441abf3d5b7",
+      "lines": 73,
+      "parse_error": "",
+      "definitions": [
+        "money",
+        "price_line",
+        "calculate_subtotal",
+        "calculate_discount",
+        "calculate_tax",
+        "calculate_shipping",
+        "create_invoice"
+      ],
+      "imports": [
+        "from collections.abc import Sequence",
+        "from decimal import ROUND_HALF_UP, Decimal",
+        "from constants import CENT, EXPRESS_SHIPPING, FREE_SHIPPING_THRESHOLD, STANDARD_SHIPPING, TAX_RATE, ZERO",
+        "from models import Customer, Invoice, Order, OrderLine, PricedLine, Product"
+      ]
+    }
+  ]
+}

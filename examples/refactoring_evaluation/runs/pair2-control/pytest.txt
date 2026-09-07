@@ -1,0 +1,121 @@
+.F....F....................................                              [100%]
+=================================== FAILURES ===================================
+________________ test_entire_refactored_directory_passes_policy ________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x106ccf4d0>
+
+    def test_entire_refactored_directory_passes_policy(
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+>       assert main([str(REFACTORED)]) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = main(['/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate'])
+
+../../../../tests/test_order_report_refactoring.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/aggregation.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/exports.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/input_data.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:11:5 F401 `aggregation.gross_sales_by_category` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:12:5 F401 `aggregation.report_discounts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:13:5 F401 `aggregation.report_tax` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:14:5 F401 `aggregation.report_total` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:15:5 F401 `aggregation.requested_stock` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:16:5 F401 `aggregation.stock_alerts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:17:5 F401 `aggregation.totals_by_customer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:18:5 F401 `aggregation.units_by_product` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:20:21 F401 `exports.invoice_csv` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:20:34 F401 `exports.stock_csv` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:20:45 F401 `exports.summary_json` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:22:5 F401 `input_data.group_order_lines` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:26:5 F401 `input_data.parse_customer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:27:5 F401 `input_data.parse_decimal` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:28:5 F401 `input_data.parse_integer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:29:5 F401 `input_data.parse_order` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:30:5 F401 `input_data.parse_order_line` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:31:5 F401 `input_data.parse_product` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:32:5 F401 `input_data.read_rows` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:33:5 F401 `input_data.required_text` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:36:5 F401 `models.CENT` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:37:5 F401 `models.EXPRESS_SHIPPING` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:38:5 F401 `models.FREE_SHIPPING_THRESHOLD` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:39:5 F401 `models.STANDARD_SHIPPING` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:40:5 F401 `models.TAX_RATE` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:43:5 F401 `models.Invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:46:5 F401 `models.PricedLine` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:49:5 F401 `models.StockAlert` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:52:5 F401 `pricing.calculate_discount` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:53:5 F401 `pricing.calculate_shipping` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:54:5 F401 `pricing.calculate_subtotal` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:55:5 F401 `pricing.calculate_tax` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:56:5 F401 `pricing.create_invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:57:5 F401 `pricing.money` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:58:5 F401 `pricing.price_line` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:61:5 F401 `presentation.format_money` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:62:5 F401 `presentation.render_invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:63:5 F401 `presentation.render_invoice_header` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:64:5 F401 `presentation.render_invoice_lines` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:65:5 F401 `presentation.render_invoice_totals` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:67:5 F401 `presentation.render_stock_alerts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/order_report.py:68:5 F401 `presentation.render_summary` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/presentation.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair2-control/candidate/pricing.py:3:1 I001 Import block is un-sorted or un-formatted
+_______________ test_public_api_parameters_and_demo_values_match _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106cbba80>
+
+    def test_public_api_parameters_and_demo_values_match(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.syspath_prepend(str(EXAMPLE_SOURCE))
+        monkeypatch.syspath_prepend(str(REFACTORED.parent))
+        original = importlib.import_module("example_project.order_report")
+>       refactored = importlib.import_module(f"{REFACTORED.name}.order_report")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../../../../tests/test_order_report_refactoring.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/nix/store/k07j8cq0iyvna81qlhwxz8xq6pkz02z8-python3-3.14.7/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1406: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1371: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1342: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:938: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:759: in exec_module
+    ???
+<frozen importlib._bootstrap>:491: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Public entry point for loading, pricing, and rendering order reports."""
+    
+    from __future__ import annotations
+    import argparse
+    from collections.abc import Sequence
+    from datetime import date
+    from decimal import Decimal
+    from pathlib import Path
+>   from aggregation import (
+        build_report,
+        gross_sales_by_category,
+        report_discounts,
+        report_tax,
+        report_total,
+        requested_stock,
+        stock_alerts,
+        totals_by_customer,
+        units_by_product,
+    )
+E   ModuleNotFoundError: No module named 'aggregation'
+
+candidate/order_report.py:9: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED ../../../../tests/test_order_report_refactoring.py::test_entire_refactored_directory_passes_policy
+FAILED ../../../../tests/test_order_report_refactoring.py::test_public_api_parameters_and_demo_values_match
+2 failed, 41 passed in 3.86s

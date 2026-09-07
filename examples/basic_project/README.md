@@ -11,6 +11,8 @@ defaults.
 
 `annotation_violations.py` adds an intentional example for each of the nine
 Ruff annotation rules enabled by the policy.
+`wildcard_violations.py` demonstrates `F403`; `explicit_exports.py` shows a named
+public re-export through `__all__`.
 
 | Code | Demonstration |
 | --- | --- |
@@ -20,6 +22,7 @@ Ruff annotation rules enabled by the policy.
 | `ANN001`, `ANN002`, `ANN003` | Annotate parameters, `*args`, and `**kwargs` |
 | `ANN201`, `ANN202`, `ANN204`, `ANN205`, `ANN206` | Annotate function and method returns |
 | `ANN401` | Replace an `Any` parameter with its actual type |
+| `F403` | Preserve public exports with named imports and `__all__` |
 | `C901` | Replace a complex decision chain with data |
 | `PLR0915` | Replace a long sequence of statements with one operation |
 | `TID251` | Replace runtime patching with dependency injection |
@@ -32,9 +35,10 @@ From the repository root, scan the project explicitly:
 $ uv run anti-slop-python examples/basic_project
 ```
 
-The command reports 17 diagnostics: seven from `violations.py`, nine from
-`annotation_violations.py`, and `SPY003` from `order_report.py`. It exits with
-status 1. `preferred.py` and `order_report_refactored/` produce no diagnostics:
+The command reports 18 diagnostics: seven from `violations.py`, nine from
+`annotation_violations.py`, `SPY003` from `order_report.py`, and `F403` from
+`wildcard_violations.py`. It exits with status 1. `preferred.py`,
+`explicit_exports.py`, and `order_report_refactored/` produce no diagnostics:
 
 ```console
 $ uv run anti-slop-python examples/basic_project/src/example_project/preferred.py
@@ -68,15 +72,19 @@ uv run python examples/basic_project/src/example_project/order_report_refactored
 uv run python -m pytest tests/test_order_report_refactoring.py
 ```
 
-See [the trial record](REFACTOR_TRIAL.md) for the model, task prompt, checks,
-review feedback, and limitations. The original file remains the before-fix
-exercise; the refactored directory is the comparison result.
+See [the trial record](REFACTOR_TRIAL.md) for the original guided trial and a
+nine-run follow-up with strong-prompt controls, saved failures, and replayable
+checks. The original file remains the before-fix exercise; the refactored
+directory is the earlier reviewed result, not a selected comparison winner.
 
 Suggested coding-agent prompt:
 
 > Copy examples/basic_project/src/example_project/order_report.py to a separate
 > working directory, run anti-slop-python on the copy, and fix SPY003 there.
-> Preserve the CLI and report outputs. Organize the code by responsibility,
+> Preserve public imports, type contracts, validation order, CLI and report outputs.
+> Check the full public API through package and standalone imports, plus each
+> supported entry point.
+> Organize the code by responsibility,
 > without suppressing the rule, raising the limit, or compressing the source.
 > Run the demo before and after the change and compare all exported reports.
 

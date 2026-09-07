@@ -1,0 +1,69 @@
+{
+  "graph": {
+    "collation": [
+      "constants",
+      "models",
+      "pricing"
+    ],
+    "constants": [],
+    "demo": [
+      "collation",
+      "constants",
+      "input_data",
+      "models"
+    ],
+    "exports": [
+      "collation",
+      "models",
+      "presentation"
+    ],
+    "input_data": [
+      "models"
+    ],
+    "models": [],
+    "order_report": [
+      "collation",
+      "constants",
+      "demo",
+      "exports",
+      "input_data",
+      "models",
+      "presentation",
+      "pricing"
+    ],
+    "presentation": [
+      "collation",
+      "models"
+    ],
+    "pricing": [
+      "constants",
+      "models"
+    ]
+  },
+  "cycle": false,
+  "topological_order": [
+    "constants",
+    "models",
+    "input_data",
+    "pricing",
+    "collation",
+    "demo",
+    "presentation",
+    "exports",
+    "order_report"
+  ],
+  "wildcard_imports": [],
+  "original_definition_count": 51,
+  "changed_definitions": [
+    "parse_customer",
+    "parse_product",
+    "parse_order_line",
+    "group_order_lines",
+    "parse_order",
+    "price_line",
+    "create_invoice",
+    "build_report",
+    "demo_report"
+  ],
+  "missing_definitions": []
+}

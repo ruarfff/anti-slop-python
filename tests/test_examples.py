@@ -22,7 +22,7 @@ def test_basic_example_demonstrates_every_policy_rule(
     codes = {line.split()[1] for line in diagnostics}
 
     assert exit_code == 1
-    assert len(diagnostics) == 17
+    assert len(diagnostics) == 18
     assert codes == {
         "SPY001",
         "SPY002",
@@ -41,6 +41,7 @@ def test_basic_example_demonstrates_every_policy_rule(
         "ANN205",
         "ANN206",
         "ANN401",
+        "F403",
     }
     expected_guidance = {
         "SPY001": "Do not remove annotations or hide Any behind aliases",
@@ -51,6 +52,7 @@ def test_basic_example_demonstrates_every_policy_rule(
         "TID251": "Do not hide the banned API behind aliases",
         "E722": "Do not replace bare except with Exception or BaseException",
         "BLE001": "Do not add logging or return a default merely to silence the rule",
+        "F403": "Import each required name explicitly",
     }
     for block in captured.out.split(str(EXAMPLE_ROOT))[1:]:
         code = block.splitlines()[0].split()[1]

@@ -40,6 +40,10 @@ _GUIDANCE: dict[str, tuple[str, ...]] = {
         "Separate distinct responsibilities into cohesive modules"
         " with clear interfaces.",
         "Keep closely related code together and preserve public APIs and behavior.",
+        "Preserve validation order, side effects, and type information"
+        " when moving code.",
+        "Verify package and standalone imports where supported, plus each entry point.",
+        "Check that every supported import mode exposes the full public API.",
         "Do not compress code, remove useful comments, split at arbitrary line counts,",
         "or move unrelated code into a generic helpers module to satisfy this limit.",
     ),
@@ -48,6 +52,17 @@ _GUIDANCE: dict[str, tuple[str, ...]] = {
         " with explicit inputs.",
         "Use a lookup table only when the branches represent a data mapping.",
         "Preserve edge cases; do not hide branches in lambdas or raise the limit.",
+    ),
+    "F401": (
+        "Check whether this import is part of the public API before removing it.",
+        "For public re-exports, keep named imports and declare them in __all__.",
+        "Keep the full public API in every supported import mode.",
+        "Do not remove public exports or replace named imports with wildcard imports.",
+    ),
+    "F403": (
+        "Import each required name explicitly so dependencies remain visible.",
+        "For public re-exports, keep named imports and declare them in __all__.",
+        "Preserve the public API; do not use wildcard imports to hide other findings.",
     ),
     "PLR0915": (
         "Separate meaningful steps into focused functions"

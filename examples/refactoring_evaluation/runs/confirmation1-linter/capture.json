@@ -1,0 +1,13 @@
+{
+  "captured_at": "2026-09-07T21:59:52.641247+00:00",
+  "changed_immutable_files": [],
+  "candidate_sha256": {
+    "order_domain.py": "6d086be42b14dd273e09ce102eacb933c1db9330bbd423bba0807280636000a4",
+    "order_exports.py": "d3d06a4f85b9ae5c06d7045427cd3544fc16251f5d9ee0076d5d693b0ec56536",
+    "order_input.py": "5697a4a41b8ad650964842ee53be194e94cbc4344149b22ce4c5c745f3c7f58d",
+    "order_presentation.py": "49f77bbf45b4935b972557abd337e89a87cac15a3a5241d418b4286a58417130",
+    "order_pricing.py": "1fd32060477e4d8ffa159694ad0d447892b5861261b272f64fb5949ee5d2811a",
+    "order_report.py": "266267953ea15586fd07f1e4a510a074de7a877ffda45cb4301da1ff9b6a1977",
+    "order_reporting.py": "1b95394b430ae1a3cba1e671d4851a7922fe4f8aa5408eb2af100c068fe30076"
+  }
+}

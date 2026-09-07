@@ -1,0 +1,395 @@
+{
+  "evaluator_sha256": "6e27f0587978680b92a5b336b055bc7a403244d4831d7ae547291a809423eaae",
+  "pytest_exit_code": 1,
+  "tests": [
+    {
+      "name": "test_preserves_original_example",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_entire_refactored_directory_passes_policy",
+      "status": "failure",
+      "message": "AssertionError: assert 1 == 0\n +  where 1 = main(['/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate'])"
+    },
+    {
+      "name": "test_demo_output_and_exports_match",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_public_api_parameters_and_demo_values_match",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[False]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[True]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-0-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-2-not-a-date]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-3-unknown]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-101]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-NaN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-Infinity]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[customers-1-1- ]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[customers]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[products]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[orders]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_validation_order_preserves_first_failure",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[3]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[4]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[5]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[6]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[7]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[8]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[9]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[10]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[11]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[missing]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[extra]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[short]",
+      "status": "passed",
+      "message": ""
+    }
+  ],
+  "modules": [
+    {
+      "path": "exports.py",
+      "sha256": "e2784fee5ff51c82d5b678d6891a8f42188d60c786142f3a25b960108a9936fd",
+      "lines": 86,
+      "parse_error": "",
+      "definitions": [
+        "invoice_csv",
+        "stock_csv",
+        "summary_json",
+        "write_exports"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "import csv",
+        "import io",
+        "import json",
+        "from pathlib import Path",
+        "from .model import Report",
+        "from .presentation import render_report",
+        "from .reporting import gross_sales_by_category, report_discounts, report_tax, report_total, totals_by_customer, units_by_product"
+      ]
+    },
+    {
+      "path": "input_data.py",
+      "sha256": "0bf7755504b24a0e06ee3ce50d7fd95286f8ccad90f62af04cd0693e18e34341",
+      "lines": 132,
+      "parse_error": "",
+      "definitions": [
+        "required_text",
+        "parse_integer",
+        "parse_decimal",
+        "read_rows",
+        "parse_customer",
+        "parse_product",
+        "parse_order_line",
+        "group_order_lines",
+        "parse_order",
+        "load_customers",
+        "load_products",
+        "load_orders"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "import csv",
+        "from collections.abc import Sequence",
+        "from datetime import date",
+        "from decimal import Decimal",
+        "from pathlib import Path",
+        "from .model import Customer, Order, OrderLine, Product"
+      ]
+    },
+    {
+      "path": "model.py",
+      "sha256": "fc118a8ffdf29b3474c4ad4c854fca0a7702f1d12cf51905c3fbd9eb83580e8b",
+      "lines": 84,
+      "parse_error": "",
+      "definitions": [
+        "Customer",
+        "Product",
+        "OrderLine",
+        "Order",
+        "PricedLine",
+        "Invoice",
+        "StockAlert",
+        "Report"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "from dataclasses import dataclass",
+        "from datetime import date",
+        "from decimal import Decimal"
+      ]
+    },
+    {
+      "path": "order_report.py",
+      "sha256": "0981d726f7693f3a234af5d783ec8682233c3e26be5d3c37be77c07e2249d85e",
+      "lines": 141,
+      "parse_error": "",
+      "definitions": [
+        "demo_report",
+        "load_report",
+        "main"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import csv",
+        "import io",
+        "import json",
+        "import sys",
+        "from collections import Counter",
+        "from collections.abc import Sequence",
+        "from dataclasses import dataclass",
+        "from datetime import date",
+        "from decimal import ROUND_HALF_UP, Decimal",
+        "from pathlib import Path",
+        "from .exports import invoice_csv, stock_csv, summary_json, write_exports",
+        "from .input_data import group_order_lines, load_customers, load_orders, load_products, parse_customer, parse_decimal, parse_integer, parse_order, parse_order_line, parse_product, read_rows, required_text",
+        "from .model import CENT, EXPRESS_SHIPPING, FREE_SHIPPING_THRESHOLD, STANDARD_SHIPPING, TAX_RATE, ZERO, Customer, Invoice, Order, OrderLine, PricedLine, Product, Report, StockAlert",
+        "from .presentation import format_money, render_invoice, render_invoice_header, render_invoice_lines, render_invoice_totals, render_report, render_stock_alerts, render_summary",
+        "from .pricing import calculate_discount, calculate_shipping, calculate_subtotal, calculate_tax, create_invoice, money, price_line",
+        "from .reporting import build_report, gross_sales_by_category, report_discounts, report_tax, report_total, requested_stock, stock_alerts, totals_by_customer, units_by_product"
+      ]
+    },
+    {
+      "path": "presentation.py",
+      "sha256": "8edb3a567776d54398bba7ce099ba72f7e27ccc35fbdd33d4cf2ba13cf74369a",
+      "lines": 74,
+      "parse_error": "",
+      "definitions": [
+        "format_money",
+        "render_invoice_header",
+        "render_invoice_lines",
+        "render_invoice_totals",
+        "render_invoice",
+        "render_stock_alerts",
+        "render_summary",
+        "render_report"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "from decimal import Decimal",
+        "from .model import Invoice, Report",
+        "from .reporting import report_discounts, report_tax, report_total, units_by_product"
+      ]
+    },
+    {
+      "path": "pricing.py",
+      "sha256": "13812c22ab741400303f76431a57768b6c89e9a3f8bdd3a2e8cb8a1f4641f500",
+      "lines": 82,
+      "parse_error": "",
+      "definitions": [
+        "money",
+        "price_line",
+        "calculate_subtotal",
+        "calculate_discount",
+        "calculate_tax",
+        "calculate_shipping",
+        "create_invoice"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "from collections.abc import Sequence",
+        "from decimal import ROUND_HALF_UP, Decimal",
+        "from .model import CENT, EXPRESS_SHIPPING, FREE_SHIPPING_THRESHOLD, STANDARD_SHIPPING, TAX_RATE, ZERO, Invoice, Order, OrderLine, PricedLine, Product, Customer"
+      ]
+    },
+    {
+      "path": "reporting.py",
+      "sha256": "1299cbfcf8698058092857a673dee8de4f4fd0acabe4574c79f01e8b2d0fc21c",
+      "lines": 75,
+      "parse_error": "",
+      "definitions": [
+        "requested_stock",
+        "stock_alerts",
+        "build_report",
+        "report_total",
+        "report_tax",
+        "report_discounts",
+        "totals_by_customer",
+        "gross_sales_by_category",
+        "units_by_product"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "from collections import Counter",
+        "from collections.abc import Sequence",
+        "from decimal import Decimal",
+        "from .model import ZERO, Customer, Invoice, Order, Product, Report, StockAlert",
+        "from .pricing import create_invoice"
+      ]
+    }
+  ]
+}

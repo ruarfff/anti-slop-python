@@ -1,0 +1,10 @@
+{
+  "captured_at": "2026-09-07T22:09:45.084717+00:00",
+  "changed_immutable_files": [],
+  "candidate_sha256": {
+    "_input.py": "39b50aaf51c8c78d07f53249d9a67cb4d6806b772cff31b5b694e0f866ffc36c",
+    "_models.py": "c66c870a28f856d896cc070b8079c083a4cafc7356be79d5e83ec984f010a230",
+    "_pricing.py": "f74c2bcf4a20d56f5b9d9423947d33297ced877ee56114836bc75e76bbc90a0f",
+    "order_report.py": "ed19a13c3026bf901f9cb34365b9a407a2c9f1326440b336e6a381fd9cb4f53c"
+  }
+}

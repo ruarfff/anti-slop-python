@@ -1,0 +1,140 @@
+.F....F....................................F.                            [100%]
+=================================== FAILURES ===================================
+________________ test_entire_refactored_directory_passes_policy ________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x10aed7620>
+
+    def test_entire_refactored_directory_passes_policy(
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+>       assert main([str(REFACTORED)]) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = main(['/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate'])
+
+../../../../tests/test_order_report_refactoring.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/demo.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/exports.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/order_report.py:7:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/presentation.py:3:1 I001 Import block is un-sorted or un-formatted
+_______________ test_public_api_parameters_and_demo_values_match _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10aec3950>
+
+    def test_public_api_parameters_and_demo_values_match(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.syspath_prepend(str(EXAMPLE_SOURCE))
+        monkeypatch.syspath_prepend(str(REFACTORED.parent))
+        original = importlib.import_module("example_project.order_report")
+>       refactored = importlib.import_module(f"{REFACTORED.name}.order_report")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../../../../tests/test_order_report_refactoring.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/nix/store/k07j8cq0iyvna81qlhwxz8xq6pkz02z8-python3-3.14.7/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1406: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1371: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1342: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:938: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:759: in exec_module
+    ???
+<frozen importlib._bootstrap>:491: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Public order report API and command-line entry point.
+    
+    The implementation is split by responsibility while these imports preserve the
+    original module's public interface for callers and scripts.
+    """
+    
+    import argparse
+    from collections.abc import Sequence
+    from pathlib import Path
+    
+>   from constants import (
+        CENT,
+        EXPRESS_SHIPPING,
+        FREE_SHIPPING_THRESHOLD,
+        STANDARD_SHIPPING,
+        TAX_RATE,
+        ZERO,
+    )
+E   ModuleNotFoundError: No module named 'constants'
+
+candidate/order_report.py:11: ModuleNotFoundError
+_____________ test_preserves_exports_in_each_import_mode[package] ______________
+
+tmp_path = PosixPath('/private/var/folders/r8/0zgts0x917l2hz3b1p75ctcc0000gn/T/pytest-of-ruairi/pytest-54/test_preserves_exports_in_each0')
+mode = 'package'
+
+    @pytest.mark.parametrize("mode", ["package", "standalone"])
+    def test_preserves_exports_in_each_import_mode(tmp_path: Path, mode: str) -> None:
+        names = []
+        for node in ast.parse(ORIGINAL.read_text()).body:
+            if isinstance(node, (ast.FunctionDef, ast.ClassDef)):
+                names.append(node.name)
+            elif isinstance(node, ast.Assign):
+                names.extend(
+                    target.id
+                    for target in node.targets
+                    if isinstance(target, ast.Name) and target.id.isupper()
+                )
+        for script in [ORIGINAL, REFACTORED / "order_report.py"]:
+            root = script.parent if mode == "standalone" else script.parent.parent
+            module = (
+                "order_report"
+                if mode == "standalone"
+                else f"{script.parent.name}.order_report"
+            )
+            probe = (
+                "import importlib, json, sys\n"
+                "sys.path.insert(0, sys.argv[1])\n"
+                "namespace = vars(importlib.import_module(sys.argv[2]))\n"
+                "names = json.loads(sys.argv[3])\n"
+                "print(json.dumps([name for name in names if name not in namespace]))\n"
+            )
+            result = subprocess.run(
+                [sys.executable, "-c", probe, str(root), module, json.dumps(names)],
+                cwd=tmp_path,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=15,
+            )
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: Traceback (most recent call last):
+E               File "<string>", line 3, in <module>
+E                 namespace = vars(importlib.import_module(sys.argv[2]))
+E                                  ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+E               File "/nix/store/k07j8cq0iyvna81qlhwxz8xq6pkz02z8-python3-3.14.7/lib/python3.14/importlib/__init__.py", line 88, in import_module
+E                 return _bootstrap._gcd_import(name[level:], package, level)
+E                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               File "<frozen importlib._bootstrap>", line 1406, in _gcd_import
+E               File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+E               File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+E               File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+E               File "<frozen importlib._bootstrap_external>", line 759, in exec_module
+E               File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+E               File "/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair3-linter/candidate/order_report.py", line 11, in <module>
+E                 from constants import (
+E                 ...<6 lines>...
+E                 )
+E             ModuleNotFoundError: No module named 'constants'
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/Users/ruairi/dev/anti-slop-python/.venv/bin/python', '-c', 'import importlib, json, sys\nsys....odule>\n    from constants import (\n    ...<6 lines>...\n    )\nModuleNotFoundError: No module named \'constants\'\n').returncode
+
+../../../../tests/test_order_report_import_modes.py:59: AssertionError
+=========================== short test summary info ============================
+FAILED ../../../../tests/test_order_report_refactoring.py::test_entire_refactored_directory_passes_policy
+FAILED ../../../../tests/test_order_report_refactoring.py::test_public_api_parameters_and_demo_values_match
+FAILED ../../../../tests/test_order_report_import_modes.py::test_preserves_exports_in_each_import_mode[package]
+3 failed, 42 passed in 4.22s

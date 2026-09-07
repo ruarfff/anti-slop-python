@@ -1,0 +1,51 @@
+{
+  "graph": {
+    "_input": [
+      "_models"
+    ],
+    "_models": [],
+    "_pricing": [
+      "_models"
+    ],
+    "order_report": [
+      "_input",
+      "_models",
+      "_pricing"
+    ]
+  },
+  "cycle": false,
+  "topological_order": [
+    "_models",
+    "_input",
+    "_pricing",
+    "order_report"
+  ],
+  "wildcard_imports": [],
+  "original_definition_count": 51,
+  "changed_definitions": [
+    "parse_customer",
+    "parse_product",
+    "parse_order_line",
+    "group_order_lines",
+    "parse_order",
+    "price_line",
+    "create_invoice",
+    "requested_stock",
+    "stock_alerts",
+    "build_report",
+    "report_total",
+    "report_tax",
+    "report_discounts",
+    "totals_by_customer",
+    "render_invoice_lines",
+    "render_stock_alerts",
+    "render_report",
+    "invoice_csv",
+    "stock_csv",
+    "summary_json",
+    "write_exports",
+    "demo_report",
+    "load_report"
+  ],
+  "missing_definitions": []
+}

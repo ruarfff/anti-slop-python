@@ -5,7 +5,7 @@ import pytest
 from anti_slop_python.diagnostics import Diagnostic
 
 
-@pytest.mark.parametrize("code", ["F401", "SyntaxError", "IOError", "Ruff"])
+@pytest.mark.parametrize("code", ["F821", "SyntaxError", "IOError", "Ruff"])
 def test_unrelated_diagnostics_keep_their_original_output(code: str) -> None:
     diagnostic = Diagnostic(Path("example.py"), 3, 7, code, "Original message")
 

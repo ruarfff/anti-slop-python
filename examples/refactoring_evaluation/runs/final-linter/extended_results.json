@@ -1,0 +1,356 @@
+{
+  "evaluator_sha256": "6e27f0587978680b92a5b336b055bc7a403244d4831d7ae547291a809423eaae",
+  "import_modes_sha256": "e00d8e3cb476e3620c4c8cf6d8e6a329eb6e69daedd357aee74d4d4c05c0bbbf",
+  "pytest_exit_code": 1,
+  "tests": [
+    {
+      "name": "test_preserves_original_example",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_entire_refactored_directory_passes_policy",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_demo_output_and_exports_match",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_cli_help_and_argument_errors_match[arguments2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_public_api_parameters_and_demo_values_match",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[False]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_csv_workflow_and_exports_match[True]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-2-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[order_lines-1-0-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-1-UNKNOWN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-2-not-a-date]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-3-unknown]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-101]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4-NaN]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[orders-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-Infinity]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-3-invalid]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[products-1-4--1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_invalid_values_preserve_failure[customers-1-1- ]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[customers]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[products]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_duplicate_records_preserve_failure[orders]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_validation_order_preserves_first_failure",
+      "status": "failure",
+      "message": "AssertionError: assert b'ValueError:...ot exceed 100' == b'ValueError:... not be empty'\n  \n  At index 12 diff: b'd' != b'n'\n  Use -v to get more diff"
+    },
+    {
+      "name": "test_generated_csv_workflows_match[0]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[1]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[2]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[3]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[4]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[5]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[6]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[7]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[8]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[9]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[10]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_generated_csv_workflows_match[11]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[missing]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[extra]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_input_file_errors_match[short]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_preserves_exports_in_each_import_mode[package]",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "test_preserves_exports_in_each_import_mode[standalone]",
+      "status": "failure",
+      "message": "AssertionError: standalone: [\"CENT\", \"TAX_RATE\", \"FREE_SHIPPING_THRESHOLD\", \"STANDARD_SHIPPING\", \"EXPRESS_SHIPPING\", \"PricedLine\", \"required_text\", \"parse_integer\", \"parse_decimal\", \"read_rows\", \"parse_customer\", \"parse_product\", \"parse_order_line\", \"group_order_lines\", \"parse_order\", \"money\", \"price_line\", \"calculate_subtotal\", \"calculate_discount\", \"calculate_tax\", \"calculate_shipping\"]\n  \nassert ['CENT', 'TAX...cedLine', ...] == []\n  \n  Left contains 21 more items, first extra item: 'CENT'\n  Use -v to get more diff"
+    }
+  ],
+  "modules": [
+    {
+      "path": "_input.py",
+      "sha256": "39b50aaf51c8c78d07f53249d9a67cb4d6806b772cff31b5b694e0f866ffc36c",
+      "lines": 132,
+      "parse_error": "",
+      "definitions": [
+        "required_text",
+        "parse_integer",
+        "parse_decimal",
+        "read_rows",
+        "parse_customer",
+        "parse_product",
+        "parse_order_line",
+        "group_order_lines",
+        "parse_order",
+        "load_customers",
+        "load_products",
+        "load_orders"
+      ],
+      "imports": [
+        "import csv",
+        "from collections.abc import Sequence",
+        "from datetime import date",
+        "from decimal import Decimal",
+        "from pathlib import Path",
+        "from ._models import Customer, Order, OrderLine, Product",
+        "from _models import Customer, Order, OrderLine, Product"
+      ]
+    },
+    {
+      "path": "_models.py",
+      "sha256": "c66c870a28f856d896cc070b8079c083a4cafc7356be79d5e83ec984f010a230",
+      "lines": 73,
+      "parse_error": "",
+      "definitions": [
+        "Customer",
+        "Product",
+        "OrderLine",
+        "Order",
+        "PricedLine",
+        "Invoice",
+        "StockAlert",
+        "Report"
+      ],
+      "imports": [
+        "from dataclasses import dataclass",
+        "from datetime import date",
+        "from decimal import Decimal"
+      ]
+    },
+    {
+      "path": "_pricing.py",
+      "sha256": "f74c2bcf4a20d56f5b9d9423947d33297ced877ee56114836bc75e76bbc90a0f",
+      "lines": 72,
+      "parse_error": "",
+      "definitions": [
+        "money",
+        "price_line",
+        "calculate_subtotal",
+        "calculate_discount",
+        "calculate_tax",
+        "calculate_shipping",
+        "create_invoice"
+      ],
+      "imports": [
+        "from collections.abc import Sequence",
+        "from decimal import ROUND_HALF_UP, Decimal",
+        "from ._models import Customer, Invoice, Order, OrderLine, PricedLine, Product",
+        "from _models import Customer, Invoice, Order, OrderLine, PricedLine, Product"
+      ]
+    },
+    {
+      "path": "order_report.py",
+      "sha256": "ed19a13c3026bf901f9cb34365b9a407a2c9f1326440b336e6a381fd9cb4f53c",
+      "lines": 394,
+      "parse_error": "",
+      "definitions": [
+        "requested_stock",
+        "stock_alerts",
+        "build_report",
+        "report_total",
+        "report_tax",
+        "report_discounts",
+        "totals_by_customer",
+        "gross_sales_by_category",
+        "units_by_product",
+        "format_money",
+        "render_invoice_header",
+        "render_invoice_lines",
+        "render_invoice_totals",
+        "render_invoice",
+        "render_stock_alerts",
+        "render_summary",
+        "render_report",
+        "_csv_report",
+        "invoice_csv",
+        "stock_csv",
+        "summary_json",
+        "write_exports",
+        "demo_report",
+        "load_report",
+        "main"
+      ],
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import csv",
+        "import io",
+        "import json",
+        "from collections import Counter",
+        "from collections.abc import Sequence",
+        "from datetime import date",
+        "from decimal import Decimal",
+        "from pathlib import Path",
+        "from ._input import group_order_lines, load_customers, load_orders, load_products, parse_customer, parse_decimal, parse_integer, parse_order, parse_order_line, parse_product, read_rows, required_text",
+        "from ._models import Customer, Invoice, Order, OrderLine, PricedLine, Product, Report, StockAlert",
+        "from ._pricing import CENT, EXPRESS_SHIPPING, FREE_SHIPPING_THRESHOLD, STANDARD_SHIPPING, TAX_RATE, ZERO, calculate_discount, calculate_shipping, calculate_subtotal, calculate_tax, create_invoice, money, price_line",
+        "from _input import load_customers, load_orders, load_products",
+        "from _models import Customer, Invoice, Order, OrderLine, Product, Report, StockAlert",
+        "from _pricing import ZERO, create_invoice"
+      ]
+    }
+  ]
+}

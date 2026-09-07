@@ -1,0 +1,78 @@
+{
+  "graph": {
+    "exports": [
+      "models",
+      "presentation",
+      "reporting"
+    ],
+    "input_data": [
+      "models"
+    ],
+    "models": [],
+    "order_report": [
+      "exports",
+      "input_data",
+      "models",
+      "presentation",
+      "pricing",
+      "reporting"
+    ],
+    "presentation": [
+      "models",
+      "reporting"
+    ],
+    "pricing": [
+      "models"
+    ],
+    "reporting": [
+      "models",
+      "pricing"
+    ]
+  },
+  "cycle": false,
+  "topological_order": [
+    "models",
+    "input_data",
+    "pricing",
+    "reporting",
+    "presentation",
+    "exports",
+    "order_report"
+  ],
+  "wildcard_imports": [
+    "order_report.py:11",
+    "order_report.py:12",
+    "order_report.py:13",
+    "order_report.py:14",
+    "order_report.py:15",
+    "order_report.py:16",
+    "pricing.py:6",
+    "reporting.py:7"
+  ],
+  "original_definition_count": 51,
+  "changed_definitions": [
+    "parse_customer",
+    "parse_product",
+    "parse_order_line",
+    "group_order_lines",
+    "parse_order",
+    "load_customers",
+    "load_products",
+    "load_orders",
+    "price_line",
+    "calculate_shipping",
+    "create_invoice",
+    "requested_stock",
+    "stock_alerts",
+    "build_report",
+    "report_total",
+    "report_tax",
+    "report_discounts",
+    "totals_by_customer",
+    "gross_sales_by_category",
+    "units_by_product",
+    "render_report",
+    "demo_report"
+  ],
+  "missing_definitions": []
+}

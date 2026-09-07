@@ -1,0 +1,55 @@
+......F....................................                              [100%]
+=================================== FAILURES ===================================
+_______________ test_public_api_parameters_and_demo_values_match _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108c2b230>
+
+    def test_public_api_parameters_and_demo_values_match(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.syspath_prepend(str(EXAMPLE_SOURCE))
+        monkeypatch.syspath_prepend(str(REFACTORED.parent))
+        original = importlib.import_module("example_project.order_report")
+>       refactored = importlib.import_module(f"{REFACTORED.name}.order_report")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../../../../tests/test_order_report_refactoring.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/nix/store/k07j8cq0iyvna81qlhwxz8xq6pkz02z8-python3-3.14.7/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1406: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1371: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1342: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:938: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:759: in exec_module
+    ???
+<frozen importlib._bootstrap>:491: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Public order report API and command-line entry point.
+    
+    The implementation is split by responsibility, while this module preserves the
+    original import surface for callers and remains directly executable.
+    """
+    
+    from __future__ import annotations
+    
+    import argparse
+    from collections.abc import Sequence
+    from datetime import date
+    from decimal import Decimal
+    from pathlib import Path
+    
+>   from exports import invoice_csv, stock_csv, summary_json, write_exports
+E   ModuleNotFoundError: No module named 'exports'
+
+candidate/order_report.py:15: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED ../../../../tests/test_order_report_refactoring.py::test_public_api_parameters_and_demo_values_match
+1 failed, 42 passed in 3.84s

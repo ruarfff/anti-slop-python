@@ -1,0 +1,68 @@
+.F.........................................                              [100%]
+=================================== FAILURES ===================================
+________________ test_entire_refactored_directory_passes_policy ________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x1090674d0>
+
+    def test_entire_refactored_directory_passes_policy(
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+>       assert main([str(REFACTORED)]) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = main(['/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate'])
+
+../../../../tests/test_order_report_refactoring.py:67: AssertionError
+----------------------------- Captured stdout call -----------------------------
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:6:8 F401 `csv` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:7:8 F401 `io` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:8:8 F401 `json` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:10:25 F401 `collections.Counter` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:12:25 F401 `dataclasses.dataclass` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:14:21 F401 `decimal.ROUND_HALF_UP` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:21:22 F401 `.exports.invoice_csv` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:21:35 F401 `.exports.stock_csv` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:21:46 F401 `.exports.summary_json` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:23:5 F401 `.input_data.group_order_lines` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:27:5 F401 `.input_data.parse_customer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:28:5 F401 `.input_data.parse_decimal` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:29:5 F401 `.input_data.parse_integer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:30:5 F401 `.input_data.parse_order` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:31:5 F401 `.input_data.parse_order_line` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:32:5 F401 `.input_data.parse_product` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:33:5 F401 `.input_data.read_rows` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:34:5 F401 `.input_data.required_text` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:37:5 F401 `.model.CENT` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:38:5 F401 `.model.EXPRESS_SHIPPING` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:39:5 F401 `.model.FREE_SHIPPING_THRESHOLD` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:40:5 F401 `.model.STANDARD_SHIPPING` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:41:5 F401 `.model.TAX_RATE` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:44:5 F401 `.model.Invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:47:5 F401 `.model.PricedLine` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:50:5 F401 `.model.StockAlert` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:53:5 F401 `.presentation.format_money` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:54:5 F401 `.presentation.render_invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:55:5 F401 `.presentation.render_invoice_header` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:56:5 F401 `.presentation.render_invoice_lines` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:57:5 F401 `.presentation.render_invoice_totals` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:59:5 F401 `.presentation.render_stock_alerts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:60:5 F401 `.presentation.render_summary` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:63:5 F401 `.pricing.calculate_discount` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:64:5 F401 `.pricing.calculate_shipping` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:65:5 F401 `.pricing.calculate_subtotal` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:66:5 F401 `.pricing.calculate_tax` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:67:5 F401 `.pricing.create_invoice` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:68:5 F401 `.pricing.money` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:69:5 F401 `.pricing.price_line` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:73:5 F401 `.reporting.gross_sales_by_category` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:74:5 F401 `.reporting.report_discounts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:75:5 F401 `.reporting.report_tax` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:76:5 F401 `.reporting.report_total` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:77:5 F401 `.reporting.requested_stock` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:78:5 F401 `.reporting.stock_alerts` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:79:5 F401 `.reporting.totals_by_customer` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/order_report.py:80:5 F401 `.reporting.units_by_product` imported but unused
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/pricing.py:3:1 I001 Import block is un-sorted or un-formatted
+/Users/ruairi/dev/anti-slop-python/examples/refactoring_evaluation/runs/pair1-control/candidate/reporting.py:9:36 F401 `.model.Invoice` imported but unused
+=========================== short test summary info ============================
+FAILED ../../../../tests/test_order_report_refactoring.py::test_entire_refactored_directory_passes_policy
+1 failed, 42 passed in 3.92s

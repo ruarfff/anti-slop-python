@@ -1,0 +1,30 @@
+{
+  "note": "Unexpected drafts found at the shared checkout root during the first pair. Moved out of the checkout; excluded from all candidate results.",
+  "files": [
+    {
+      "path": "candidate/input_data.py",
+      "sha256": "e831688ac34071a20ac2abc198feaa826be06cac55a30163d49cb6465fecbf8b",
+      "created_at": "2026-09-07T21:43:44.300833+00:00"
+    },
+    {
+      "path": "candidate/models.py",
+      "sha256": "16cf11df8ff7d7a95cd60333b069eb47340a4477f7acdbd9a682da166e5d53db",
+      "created_at": "2026-09-07T21:43:44.190643+00:00"
+    },
+    {
+      "path": "candidate/presentation.py",
+      "sha256": "8dac282112d27c19e50a977804c492ab61a78f1416db64280d0b1d180930b663",
+      "created_at": "2026-09-07T21:44:08.527430+00:00"
+    },
+    {
+      "path": "candidate/pricing.py",
+      "sha256": "181078eada6912ea712077c40de0d23a4d787326750cd226a5f47490501a7ec0",
+      "created_at": "2026-09-07T21:44:08.309585+00:00"
+    },
+    {
+      "path": "candidate/reporting.py",
+      "sha256": "58c7709565e8010b74d939156ae6058f31a2260a12ab89486a59499108593a71",
+      "created_at": "2026-09-07T21:44:08.418978+00:00"
+    }
+  ]
+}

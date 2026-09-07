@@ -136,6 +136,7 @@ policy by default:
 | [`ANN001`, `ANN002`, `ANN003`](https://docs.astral.sh/ruff/rules/#flake8-annotations-ann) | Require annotations on function parameters, including `*args` and `**kwargs` |
 | [`ANN201`, `ANN202`, `ANN204`, `ANN205`, `ANN206`](https://docs.astral.sh/ruff/rules/#flake8-annotations-ann) | Require return annotations on public/private functions and special, static, and class methods |
 | [`ANN401`](https://docs.astral.sh/ruff/rules/any-type/) | Reject `Any` on function arguments |
+| [`F403`](https://docs.astral.sh/ruff/rules/undefined-local-with-import-star/) | Require named imports instead of wildcard imports |
 | [`C901`](https://docs.astral.sh/ruff/rules/complex-structure/) | Cyclomatic complexity of at most 10 |
 | [`PLR0915`](https://docs.astral.sh/ruff/rules/too-many-statements/) | At most 40 statements per function or method |
 | [`TID251`](https://docs.astral.sh/ruff/rules/banned-api/) | Ban `unittest.mock.patch` and `mock.patch` |
@@ -147,7 +148,7 @@ equivalent to:
 
 ```toml
 [tool.ruff.lint]
-extend-select = ["ANN", "BLE001", "C901", "E722", "PLR0915", "TID251"]
+extend-select = ["ANN", "BLE001", "C901", "E722", "F403", "PLR0915", "TID251"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
@@ -173,6 +174,10 @@ max-statements = 50
 
 `ignore` and `extend-ignore` disable default rules. Explicit thresholds,
 exclusions, per-file ignores, and `noqa` comments also apply.
+
+Relative Ruff paths, including source roots and exclusions, resolve from the
+directory containing that project's Ruff configuration. Checking a project from
+its parent directory uses the same settings as checking from the project itself.
 
 If the project defines the `TID251` banned-API table, it replaces the default
 provided by `anti-slop-python`.
@@ -273,6 +278,14 @@ a clear purpose and interface. Keep closely related code together, minimize
 shared state and cross-module calls, and avoid circular imports. Moving unrelated
 code into a generic helpers module does not improve the design. Preserve public
 APIs and verify behavior after changing the boundaries.
+Check package imports, standalone imports where supported, and every entry point.
+Each supported import mode must retain the full public API.
+Preserve validation order, side effects, and type information when moving code.
+
+The [agent comparison](examples/basic_project/REFACTOR_TRIAL.md) records a strong
+prompt baseline, repeated linter-guided runs, withheld behavior checks and the
+failures that led to improvements. A clean lint result does not establish API
+compatibility or correct behavior.
 
 #### Test modules and configuration
 
@@ -350,6 +363,33 @@ rules incrementally without disabling other checks on a legacy file:
 The native rules still run on that file, and ignored annotation rules produce
 policy notices. This policy does not require explicit annotations on `self`
 or `cls`. Ruff's annotation-specific settings remain project-controlled.
+
+### F403 — Keep imports and public exports explicit
+
+Wildcard imports hide which module provides a name. They can also hide unused
+import findings during a refactor. Use named imports and preserve the intended
+public API. For a facade that re-exports a name, declare it in `__all__`:
+
+```python
+from .pricing import calculate_tax
+
+__all__ = ["calculate_tax"]
+```
+
+When Ruff reports `F401`, the output also explains how to preserve public
+re-exports. Do not delete a public name or replace named imports with `import *`
+merely to clear that finding. `F403` checks wildcard syntax; it does not verify
+that imports resolve at runtime. Test imports and behavior separately.
+
+For incremental adoption, retain a specific legacy facade while checking other
+files and rules:
+
+```toml
+[tool.ruff.lint.per-file-ignores]
+"src/legacy/__init__.py" = ["F403"]
+```
+
+This produces a policy notice. Native rules continue to run on the file.
 
 ### [`C901`](https://docs.astral.sh/ruff/rules/complex-structure/) — Limit decision complexity
 
@@ -434,6 +474,9 @@ src/api/parser.py:45:8 SPY002 Avoid dynamic attribute access
 src/api/large_module.py:1:1 SPY003 Too many lines in module (642 > 500)
   Separate distinct responsibilities into cohesive modules with clear interfaces.
   Keep closely related code together and preserve public APIs and behavior.
+  Preserve validation order, side effects, and type information when moving code.
+  Verify package and standalone imports where supported, plus each entry point.
+  Check that every supported import mode exposes the full public API.
   Do not compress code, remove useful comments, split at arbitrary line counts,
   or move unrelated code into a generic helpers module to satisfy this limit.
 src/orders/service.py:18:5 C901 `create_order` is too complex (14 > 10)
@@ -455,6 +498,7 @@ When reading diagnostics through the Python API, `message` contains the summary;
 | `SPY001` | Describe and validate the actual data instead of hiding `Any` |
 | `SPY002` | Use explicit interfaces and preserve missing-value behavior |
 | `SPY003` | Separate production responsibilities or group tests by behavior; preserve related code and test coverage |
+| `F401`, `F403` | Keep public exports through named imports and `__all__`; check every supported import mode |
 | `C901` | Simplify decisions while preserving edge cases |
 | `PLR0915` | Extract meaningful steps while preserving ordering and side effects |
 | `TID251` | Follow the project's API policy; pass dependencies when test isolation is needed |
@@ -494,6 +538,13 @@ Run the example explicitly to see its diagnostics:
 uv run anti-slop-python examples/basic_project
 ```
 
+The [agent comparison](examples/basic_project/REFACTOR_TRIAL.md) records nine
+fresh refactoring runs, including a strong-prompt control and saved failures.
+It shows agents correcting specific lint findings, but does not establish an
+overall refactor-correctness advantage. The
+[evaluation harness](examples/refactoring_evaluation) replays those outcomes
+without model calls.
+
 ## Scope and limitations
 
 Native checks use Python's built-in `ast` and a pragmatic import alias map.
@@ -504,8 +555,9 @@ the project's effective Ruff configuration and suppression behavior.
 
 ## Releases
 
-Version `0.2.0` adds module-size enforcement, function annotation checks, and
-refactoring guidance. Versions come from Git tags through `hatch-vcs`.
+Version `0.2.0` adds module-size enforcement, function annotation checks,
+explicit-import checks, and refactoring guidance. Versions come from Git tags
+through `hatch-vcs`.
 The publishing workflow selects at least `v0.2.0` for the next untagged `main`
 commit, then continues with patch increments. Opening a PR does not publish a
 release; publishing runs after eligible changes reach `main`.

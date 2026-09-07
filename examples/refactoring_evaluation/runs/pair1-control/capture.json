@@ -1,0 +1,14 @@
+{
+  "captured_at": null,
+  "note": "First snapshot was copied manually before archive.py existed; immutable file hashes were checked at capture.",
+  "changed_immutable_files": [],
+  "candidate_sha256": {
+    "exports.py": "e2784fee5ff51c82d5b678d6891a8f42188d60c786142f3a25b960108a9936fd",
+    "input_data.py": "0bf7755504b24a0e06ee3ce50d7fd95286f8ccad90f62af04cd0693e18e34341",
+    "model.py": "fc118a8ffdf29b3474c4ad4c854fca0a7702f1d12cf51905c3fbd9eb83580e8b",
+    "order_report.py": "0981d726f7693f3a234af5d783ec8682233c3e26be5d3c37be77c07e2249d85e",
+    "presentation.py": "8edb3a567776d54398bba7ce099ba72f7e27ccc35fbdd33d4cf2ba13cf74369a",
+    "pricing.py": "13812c22ab741400303f76431a57768b6c89e9a3f8bdd3a2e8cb8a1f4641f500",
+    "reporting.py": "1299cbfcf8698058092857a673dee8de4f4fd0acabe4574c79f01e8b2d0fc21c"
+  }
+}

@@ -1,0 +1,26 @@
+Refactor candidate/order_report.py to improve its module design. Separate distinct
+responsibilities into cohesive modules with clear interfaces. Keep related code
+together; avoid arbitrary splits, generic helper buckets, unnecessary layers,
+compression, and unrelated rewrites. Preserve useful comments and readable code.
+
+Keep candidate/order_report.py as both the public import entry point and a directly
+executable script. Preserve every original public function, class, constant,
+parameter, default, type annotation, CLI option, output, validation error, and
+order of side effects. New functions must have concrete parameter and return
+types. Keep dependencies acyclic. Do not add external dependencies or depend on
+the original file at runtime.
+
+Work only in this run's directory. You may read before/order_report.py as the
+reference and edit or add Python files under candidate/. Do not change before/,
+pyproject.toml, the tools, or this prompt. Do not add exclusions, suppressions,
+configuration changes, or test-like filenames to bypass production checks.
+Do not inspect other runs, the parent repository, its tests, the earlier trial,
+or any existing refactored solution. This is an independent trial: do not use
+web search, subagents, commits, or pushes.
+
+Use the Python executable specified below. Run smoke.py, compare the refactor
+with the reference, and add/run your own checks as useful. You may use
+`python -m ruff format candidate` for formatting. You have at most 12 minutes;
+stop earlier when finished. Report the final module layout, checks actually run,
+and remaining limitations. Your first completed result will be evaluated;
+there will be no reviewer repair round.

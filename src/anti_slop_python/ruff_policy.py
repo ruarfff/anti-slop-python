@@ -13,6 +13,7 @@ _RECOMMENDED_RULES = (
     "TID251",
     "E722",
     "BLE001",
+    "F403",
     "ANN001",
     "ANN002",
     "ANN003",
