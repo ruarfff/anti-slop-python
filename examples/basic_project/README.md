@@ -73,9 +73,10 @@ uv run python -m pytest tests/test_order_report_refactoring.py
 ```
 
 See [the trial record](REFACTOR_TRIAL.md) for the original guided trial and a
-nine-run follow-up with strong-prompt controls, saved failures, and replayable
-checks. The original file remains the before-fix exercise; the refactored
-directory is the earlier reviewed result, not a selected comparison winner.
+nine-run follow-up with strong-prompt controls, observed failures, and resulting
+linter improvements. The original file remains the before-fix exercise; the
+refactored directory is the earlier reviewed result, not a selected comparison
+winner.
 
 Suggested coding-agent prompt:
 

@@ -1,9 +1,0 @@
-.............................................                            [100%]
-=============================== warnings summary ===============================
-../../../../.venv/lib/python3.14/site-packages/_pytest/pathlib.py:95
-  /Users/ruairi/dev/anti-slop-python/.venv/lib/python3.14/site-packages/_pytest/pathlib.py:95: PytestWarning: (rm_rf) error removing /private/var/folders/r8/0zgts0x917l2hz3b1p75ctcc0000gn/T/pytest-of-ruairi/garbage-678ec473-b36d-4477-a109-aa9eb33f0592
-  <class 'OSError'>: [Errno 66] Directory not empty: '/private/var/folders/r8/0zgts0x917l2hz3b1p75ctcc0000gn/T/pytest-of-ruairi/garbage-678ec473-b36d-4477-a109-aa9eb33f0592'
-    warnings.warn(
-
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-45 passed, 1 warning in 4.22s

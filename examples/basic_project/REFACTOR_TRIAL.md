@@ -5,9 +5,9 @@ refactor correctness over a strong prompt. It did show a narrower benefit:
 agents followed specific lint feedback to remove wildcard imports. Clean lint
 still accompanied broken public APIs and changed validation order.
 
-Nine fresh agents produced nine preserved first completions. None was repaired
-by the parent or discarded. The original guided trial is retained below as
-historical context; its reviewed solution was not supplied to these agents.
+Nine fresh agents produced nine first completions. Each was evaluated without
+parent repairs; none was discarded. The original guided trial is retained below
+as historical context; its reviewed solution was not supplied to these agents.
 
 ## Controlled comparison: 2026-09-07
 
@@ -21,20 +21,46 @@ history. Each had a fresh workspace, the reference source, Python 3.14.7, Ruff
 checks. Each had a 12-minute ceiling; all finished sooner. The six initial runs
 used the tool at commit `d708c168ddd91ba98a36e478b18af54a8007bee8` (policy v1).
 
-The [common prompt](../refactoring_evaluation/prompt.md) asks for cohesive
-modules, explicit interfaces, acyclic dependencies, preserved public names and
-types, identical errors and outputs, and no unrelated rewrites or metric bypass.
-The [control](../refactoring_evaluation/control.md) used that prompt and behavior
-checks. The [linter condition](../refactoring_evaluation/linter.md) additionally
+Both conditions received this common prompt, with the workspace and Python
+executable supplied separately:
+
+> Refactor candidate/order_report.py to improve its module design. Separate distinct
+> responsibilities into cohesive modules with clear interfaces. Keep related code
+> together; avoid arbitrary splits, generic helper buckets, unnecessary layers,
+> compression, and unrelated rewrites. Preserve useful comments and readable code.
+>
+> Keep candidate/order_report.py as both the public import entry point and a directly
+> executable script. Preserve every original public function, class, constant,
+> parameter, default, type annotation, CLI option, output, validation error, and
+> order of side effects. New functions must have concrete parameter and return
+> types. Keep dependencies acyclic. Do not add external dependencies or depend on
+> the original file at runtime.
+>
+> Work only in this run's directory. You may read before/order_report.py as the
+> reference and edit or add Python files under candidate/. Do not change before/,
+> pyproject.toml, the tools, or this prompt. Do not add exclusions, suppressions,
+> configuration changes, or test-like filenames to bypass production checks.
+> Do not inspect other runs, the parent repository, its tests, the earlier trial,
+> or any existing refactored solution. This is an independent trial: do not use
+> web search, subagents, commits, or pushes.
+>
+> Use the Python executable specified below. Run smoke.py, compare the refactor
+> with the reference, and add/run your own checks as useful. You may use
+> `python -m ruff format candidate` for formatting. You have at most 12 minutes;
+> stop earlier when finished. Report the final module layout, checks actually run,
+> and remaining limitations. Your first completed result will be evaluated;
+> there will be no reviewer repair round.
+
+The control used that prompt and behavior checks. The linter condition also
 required initial, iterative, and final whole-directory lint runs and reading
 the diagnostic guidance. Both could use Ruff's formatter. Controls could not
 run lint checks. No module layout was supplied.
 
-The [protocol](../refactoring_evaluation/PROTOCOL.md) and 43 evaluator cases were
-fixed before dispatch. Agents were instructed not to read the withheld tests,
-other runs, or the parent repository. Each pair ran concurrently, then the next
-pair started; dispatch order alternated. Candidates were saved before withheld
-results were inspected. Source review used fixed criteria but was not blind.
+The protocol and 43 evaluator cases were fixed before dispatch. Agents were
+instructed not to read the withheld tests, other runs, or the parent repository.
+Each pair ran concurrently, then the next pair started; dispatch order alternated.
+Candidates were saved before withheld results were inspected. Source review used
+fixed criteria but was not blind.
 
 ### What the checks measure
 
@@ -57,17 +83,16 @@ Before using the evaluator, calibration checked the earlier repaired solution
 (43 passes), the unchanged original (only the size-policy case failed), an empty
 entry point (41 failures), removed function annotations (contract and lint
 failures), and a changed tax rate (10 behavior/contract failures despite clean
-lint). The [calibration record](../refactoring_evaluation/calibration.json)
-includes each outcome. This establishes sensitivity to those defects, not
-complete correctness coverage.
+lint). This established sensitivity to those defects, not complete correctness
+coverage.
 
 ### Initial paired results, policy v1
 
-Results below use the frozen 43 cases and the saved, self-contained candidates.
+Results below use the frozen 43 cases and independent copies of each candidate.
 “Lines” is the largest module / total Python source. All extracted modules
 passed the 500-line limit.
 
-| Run | Cases passed | Behavior/API failure | Saved lint | Files | Lines | Seconds |
+| Run | Cases passed | Behavior/API failure | Independent lint | Files | Lines | Seconds |
 | --- | ---: | --- | --- | ---: | ---: | ---: |
 | Pair 1, strong prompt | 42/43 | None found | Fail | 7 | 141 / 674 | 112 |
 | Pair 1, with linter | 42/43 | Package import fails | Pass | 7 | 131 / 645 | 184 |
@@ -82,13 +107,12 @@ on this sample, but that did not translate into a correct refactor. Much of the
 lint cleanup involved Ruff's existing `F401` and `I001` checks. There was no
 Ruff-only condition, so this does not establish value beyond Ruff alone.
 
-*Pair 3's linter agent logged a final lint pass in its workspace. The saved
-candidate has four `I001` findings. Two stray application drafts outside
-`candidate/` affected Ruff's first-party import classification. The archive
-retains those files' hashes and names, but excludes them from the candidate.
-Both the earlier repository-root replay and the corrected project-directory
-replay are saved. Changing the replay directory alone did not remove these
-findings. Reported workspace success and independent replay are distinct results.
+*Pair 3's linter agent logged a final lint pass in its workspace. An independent
+copy of the candidate produced four `I001` findings. Two stray application drafts
+outside `candidate/` affected Ruff's first-party import classification. The
+independent copy excluded those drafts. Running it from the project directory
+instead of the repository root did not remove the findings. Reported workspace
+success and independent evaluation were distinct results.
 
 The median reported time was 117 seconds for controls and 171 seconds with the
 original linter. These are agent-reported wall times, affected by host load and
@@ -128,16 +152,17 @@ These findings led to three generic product changes (policy v2):
 
 ### Development confirmations and an evaluator gap
 
-Two fresh agents received the same task and updated policy v2. The
-[confirmation protocol](../refactoring_evaluation/CONFIRMATION.md) was fixed
-before either started. Both first completions passed all 43 original cases.
+Two fresh agents received the same task and updated policy v2. The confirmation
+protocol was fixed before either started: use the same prompt, model, settings,
+source, smoke checks, and time limit; provide no earlier candidates or reviewer
+feedback. Both first completions passed all 43 original cases.
 
 Source review then found that confirmation 2 exposed only five of the original
 57 public names when imported as a standalone module. Its package import and
 CLI worked. The original evaluator had checked the full API only in package
-mode. Two new tests now compare the complete declared API in fresh processes
-for package and standalone imports. They were applied to **every** saved
-candidate. These are a post-hoc extension, not a replacement for the old scores.
+mode. Two additional checks compared the complete declared API in fresh
+processes for package and standalone imports. They were applied to **every**
+candidate. These were a post-hoc extension, not a replacement for the old scores.
 
 | Run | Policy | Original 43 | Extended 45 | Failure in extended checks | Files | Largest / total lines |
 | --- | --- | ---: | ---: | --- | ---: | ---: |
@@ -158,18 +183,17 @@ final validation took 144 seconds.
 
 There is direct evidence of agents following the new diagnostic: confirmation
 2 introduced ten wildcard imports, received ten `F403` findings with guidance,
-and replaced all ten without reviewer feedback. Its
-[diagnostic log](../refactoring_evaluation/runs/confirmation2-linter/lint.jsonl)
-records that sequence. Confirmation 1 and final validation also removed wildcard
-imports after findings. This demonstrates correction of a specific shortcut.
+and replaced all ten without reviewer feedback. The diagnostic log showed that
+sequence. Confirmation 1 and final validation also removed wildcard imports
+after findings. This demonstrates correction of a specific shortcut.
 It does not demonstrate preservation of the whole public API: confirmation 2's
 fallback import branch retained only its five CLI dependencies.
 
 Policy v3 clarified that `SPY003` and `F401` require the full public API in every
-supported import mode. The [final protocol](../refactoring_evaluation/FINAL_VALIDATION.md)
-fixed one further run and prohibited more tuning or candidates in this
-experiment. That agent still changed validation order and lost standalone
-exports, despite clean lint. Its four-module split also left reporting,
+supported import mode. Before the final run, we fixed the updated tool and all
+45 checks, allowed one further fresh agent, and prohibited more tuning or
+candidates in this experiment. That agent still changed validation order and
+lost standalone exports, despite clean lint. Its four-module split also left reporting,
 presentation, export, demo, and CLI responsibilities together in a 394-line
 facade. We retained the result and stopped as planned.
 
@@ -197,21 +221,19 @@ static proof of type correctness.
 
 Workspace boundaries were instructions on a shared filesystem, not enforced
 isolation. Pair 1's linter agent wrote five draft files outside its run via
-relative patch paths. They were moved out of the repository and their hashes
-and the agent's post-run audit are saved. The agent reported no reading of other
-runs or withheld tests; that is not independently enforced evidence. There were
-nine coding rollouts and one post-run audit call, with no parent repairs to
-candidate code.
+relative patch paths. They were moved out of the repository. In a post-run
+audit, the agent reported no reading of other runs or withheld tests; that is
+not independently enforced evidence. There were nine coding rollouts and one
+post-run audit call, with no parent repairs to candidate code.
 
 To establish broader value, a subsequent study needs unseen real projects,
 enforced workspace isolation, and strong-prompt, Ruff-only, and anti-slop-python
 conditions. Those are next experiments, not claims made by this one.
 
-All prompts, candidate hashes, first completions, per-case results, diagnostics,
-policy patches, and reproduction commands are in
-[`examples/refactoring_evaluation`](../refactoring_evaluation/README.md).
-The repository tests replay the saved behavior outcomes, including expected
-failures, without model calls. The oversized original remains unchanged.
+This report retains the follow-up's method, results, fixes, and limitations.
+Its temporary candidates, evaluation scripts, and raw logs are not project
+fixtures. The oversized original and the earlier reviewed example remain
+unchanged, with their existing regression tests.
 
 ## Historical guided trial: 2026-09-05
 

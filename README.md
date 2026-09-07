@@ -539,11 +539,9 @@ uv run anti-slop-python examples/basic_project
 ```
 
 The [agent comparison](examples/basic_project/REFACTOR_TRIAL.md) records nine
-fresh refactoring runs, including a strong-prompt control and saved failures.
-It shows agents correcting specific lint findings, but does not establish an
-overall refactor-correctness advantage. The
-[evaluation harness](examples/refactoring_evaluation) replays those outcomes
-without model calls.
+fresh refactoring runs, including a strong-prompt control and the failures
+observed. It shows agents correcting specific lint findings, but does not
+establish an overall refactor-correctness advantage.
 
 ## Scope and limitations
 
