@@ -10,20 +10,6 @@ _ANNOTATION_GUIDANCE = (
 )
 
 _GUIDANCE: dict[str, tuple[str, ...]] = {
-    **dict.fromkeys(
-        (
-            "ANN001",
-            "ANN002",
-            "ANN003",
-            "ANN201",
-            "ANN202",
-            "ANN204",
-            "ANN205",
-            "ANN206",
-            "ANN401",
-        ),
-        _ANNOTATION_GUIDANCE,
-    ),
     "SPY001": (
         "Describe the actual data with concrete types, TypedDict, or a dataclass.",
         "Validate untrusted data at the boundary; narrow unknown values before use.",
@@ -103,4 +89,6 @@ class Diagnostic:
     def __str__(self) -> str:
         summary = f"{self.path}:{self.line}:{self.column} {self.code} {self.message}"
         guidance = self.guidance or _GUIDANCE.get(self.code, ())
+        if not guidance and self.code.startswith("ANN"):
+            guidance = _ANNOTATION_GUIDANCE
         return "\n  ".join((summary, *guidance))

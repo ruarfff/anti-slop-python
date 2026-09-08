@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from io import StringIO
 
 from anti_slop_python.diagnostics import Diagnostic
 from anti_slop_python.rules.base import Rule, RuleContext
@@ -14,10 +15,7 @@ _TEST_GUIDANCE = (
 
 
 def _check(context: RuleContext) -> Iterable[Diagnostic]:
-    # Normalize Python line endings without treating Unicode separators or
-    # form feeds inside strings and comments as additional source lines.
-    source = context.source.replace("\r\n", "\n").replace("\r", "\n")
-    lines = source.count("\n") + int(bool(source) and not source.endswith("\n"))
+    lines = sum(1 for _ in StringIO(context.source, newline=None))
     is_test = context.settings.is_test_file(context.path)
     limit = (
         context.settings.max_test_module_lines
