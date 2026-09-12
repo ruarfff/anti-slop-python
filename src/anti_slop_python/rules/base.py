@@ -5,6 +5,7 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from anti_slop_python.configuration import ModuleSizeSettings
 from anti_slop_python.diagnostics import Diagnostic
 
 
@@ -24,6 +25,8 @@ class RuleContext:
 
     path: Path
     tree: ast.AST
+    source: str
+    settings: ModuleSizeSettings = field(default_factory=ModuleSizeSettings)
     imports: dict[str, str] = field(init=False)
 
     def __post_init__(self) -> None:

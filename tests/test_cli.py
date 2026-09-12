@@ -29,7 +29,9 @@ max-statements = 40
     )
 
 
-def test_returns_one_and_prints_conventional_diagnostic(tmp_path: Path, capsys) -> None:
+def test_returns_one_and_prints_conventional_diagnostic(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     source = tmp_path / "example.py"
     source.write_text('getattr(value, "name")\n')
 
@@ -38,10 +40,16 @@ def test_returns_one_and_prints_conventional_diagnostic(tmp_path: Path, capsys) 
     assert exit_code == 1
     assert capsys.readouterr().out == (
         f"{source}:1:1 SPY002 Avoid dynamic attribute access\n"
+        "  Use direct attribute access for a known interface.\n"
+        "  For runtime choices, use an explicit mapping of supported operations.\n"
+        "  Preserve missing-value behavior explicitly.\n"
+        "  Do not replace this call with __dict__, vars(), or a reflection wrapper.\n"
     )
 
 
-def test_returns_zero_when_no_violations(tmp_path: Path, capsys) -> None:
+def test_returns_zero_when_no_violations(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     source = tmp_path / "example.py"
     source.write_text("value.name\n")
 
@@ -49,8 +57,38 @@ def test_returns_zero_when_no_violations(tmp_path: Path, capsys) -> None:
     assert capsys.readouterr().out == ""
 
 
+@pytest.mark.parametrize("lines", [500, 501])
+def test_module_size_controls_exit_status(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], lines: int
+) -> None:
+    source = tmp_path / "example.py"
+    source.write_text("value = 1\n" * lines)
+
+    exit_code = main([str(source)])
+
+    assert exit_code == (1 if lines > 500 else 0)
+    expected = (
+        f"{source}:1:1 SPY003 Too many lines in module (501 > 500)\n"
+        "  Separate distinct responsibilities into cohesive modules"
+        " with clear interfaces.\n"
+        "  Keep closely related code together and preserve public APIs and behavior.\n"
+        "  Preserve validation order, side effects, and type information"
+        " when moving code.\n"
+        "  Verify package and standalone imports where supported,"
+        " plus each entry point.\n"
+        "  Check that every supported import mode exposes the full public API.\n"
+        "  Do not compress code, remove useful comments,"
+        " split at arbitrary line counts,\n"
+        "  or move unrelated code into a generic helpers module"
+        " to satisfy this limit.\n"
+        if lines > 500
+        else ""
+    )
+    assert capsys.readouterr().out == expected
+
+
 def test_discovers_files_recursively_and_ignores_environments(
-    tmp_path: Path, capsys
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     package = tmp_path / "package"
     package.mkdir()
@@ -75,7 +113,7 @@ def test_discovers_files_recursively_and_ignores_environments(
 
 
 def test_checks_excluded_directory_when_passed_explicitly(
-    tmp_path: Path, capsys
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
     examples_directory = tmp_path / "examples"
     examples_directory.mkdir()
@@ -88,7 +126,9 @@ def test_checks_excluded_directory_when_passed_explicitly(
     assert str(example) in capsys.readouterr().out
 
 
-def test_syntax_error_returns_one(tmp_path: Path, capsys) -> None:
+def test_syntax_error_returns_one(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     source = tmp_path / "broken.py"
     source.write_text("def broken(:\n")
 
@@ -98,7 +138,9 @@ def test_syntax_error_returns_one(tmp_path: Path, capsys) -> None:
     assert "SyntaxError invalid syntax" in capsys.readouterr().out
 
 
-def test_policy_notice_does_not_change_exit_code(tmp_path: Path, capsys) -> None:
+def test_policy_notice_does_not_change_exit_code(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     (tmp_path / "pyproject.toml").write_text(
         """[tool.ruff.lint]
 extend-ignore = ["C901"]

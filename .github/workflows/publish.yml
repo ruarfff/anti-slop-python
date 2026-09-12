@@ -79,15 +79,16 @@ jobs:
               tags = [t.strip() for t in tags_proc.stdout.splitlines() if t.strip()]
 
               if not tags:
-                  next_tag = "v0.1.0"
+                  next_tag = "v0.2.0"
               else:
                   latest = tags[0]
                   match = re.match(r"^v(\d+)\.(\d+)\.(\d+)$", latest)
                   if match:
                       major, minor, patch = map(int, match.groups())
-                      next_tag = f"v{major}.{minor}.{patch + 1}"
+                      next_version = max((major, minor, patch + 1), (0, 2, 0))
+                      next_tag = "v" + ".".join(map(str, next_version))
                   else:
-                      next_tag = "v0.1.0"
+                      next_tag = "v0.2.0"
 
               print(f"tag={next_tag}")
               print(f"version={next_tag.lstrip('v')}")

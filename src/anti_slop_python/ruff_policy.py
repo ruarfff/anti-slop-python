@@ -7,7 +7,23 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-_RECOMMENDED_RULES = ("C901", "PLR0915", "TID251", "E722", "BLE001")
+_RECOMMENDED_RULES = (
+    "C901",
+    "PLR0915",
+    "TID251",
+    "E722",
+    "BLE001",
+    "F403",
+    "ANN001",
+    "ANN002",
+    "ANN003",
+    "ANN201",
+    "ANN202",
+    "ANN204",
+    "ANN205",
+    "ANN206",
+    "ANN401",
+)
 _RECOMMENDED_BANNED_APIS = {
     "mock.patch": "Avoid patching state. Pass the dependency explicitly instead.",
     "unittest.mock.patch": (

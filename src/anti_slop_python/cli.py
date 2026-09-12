@@ -7,6 +7,11 @@ from collections.abc import Iterable, Sequence
 from pathlib import Path
 
 from anti_slop_python.checker import check_file
+from anti_slop_python.configuration import (
+    ConfigurationError,
+    ModuleSizeSettings,
+    load_settings,
+)
 from anti_slop_python.ruff_integration import RuffFailure, check_with_ruff
 
 _IGNORED_DIRECTORIES = {
@@ -29,8 +34,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.error(str(error))
 
     try:
+        settings_cache: dict[Path, ModuleSizeSettings] = {}
+        diagnostics = [
+            diagnostic
+            for path in files
+            for diagnostic in check_file(
+                path, settings=load_settings(path, settings_cache)
+            )
+        ]
         ruff_result = check_with_ruff(arguments.paths, files)
-    except RuffFailure as error:
+    except (ConfigurationError, RuffFailure) as error:
         print(f"anti-slop-python: {error}", file=sys.stderr)
         return 2
 
@@ -39,7 +52,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     for notice in ruff_result.notices:
         print(f"anti-slop-python policy notice: {notice}", file=sys.stderr)
 
-    diagnostics = [diagnostic for path in files for diagnostic in check_file(path)]
     diagnostics.extend(ruff_result.diagnostics)
     for diagnostic in sorted(diagnostics):
         print(diagnostic)

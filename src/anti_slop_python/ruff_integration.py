@@ -41,21 +41,28 @@ def check_with_ruff(
     scopes = settings_scopes(python_files)
     effective_settings: list[RuffSettings] = []
     for configuration, files in scopes:
+        project_root = configuration.parent if configuration is not None else None
         config_arguments = configuration_arguments(configuration)
-        included_files = _included_files(files, config_arguments)
+        included_files = _included_files(files, config_arguments, cwd=project_root)
         if not included_files:
             continue
-        baseline = _resolved_settings(included_files[0], config_arguments)
+        baseline = _resolved_settings(
+            included_files[0], config_arguments, cwd=project_root
+        )
         arguments = (*config_arguments, *default_arguments(baseline))
         for targets in _path_batches(included_files):
-            normal = _ruff_diagnostics(targets, arguments, python_files)
+            normal = _ruff_diagnostics(
+                targets, arguments, python_files, cwd=project_root
+            )
             diagnostics.extend(normal.diagnostics)
             warnings.extend(normal.warnings)
             audit = _ruff_diagnostics(
-                targets, ("--ignore-noqa", *arguments), python_files
+                targets, ("--ignore-noqa", *arguments), python_files, cwd=project_root
             )
             noqa_notices.extend(_noqa_notices(normal.diagnostics, audit.diagnostics))
-        effective_settings.append(_resolved_settings(included_files[0], arguments))
+        effective_settings.append(
+            _resolved_settings(included_files[0], arguments, cwd=project_root)
+        )
 
     notices = (*policy_notices_for_scopes(effective_settings), *noqa_notices)
     return RuffCheckResult(
@@ -75,6 +82,8 @@ def _ruff_diagnostics(
     targets: Sequence[Path],
     arguments: Sequence[str],
     python_files: Sequence[Path],
+    *,
+    cwd: Path | None = None,
 ) -> _RuffDiagnostics:
     completed = _run_ruff(
         "check",
@@ -86,7 +95,8 @@ def _ruff_diagnostics(
         "--force-exclude",
         *arguments,
         "--",
-        *(str(path) for path in targets),
+        *(str(path.resolve()) for path in targets),
+        cwd=cwd,
     )
     return _RuffDiagnostics(
         diagnostics=_parse_diagnostics(completed.stdout, python_files),
@@ -107,7 +117,9 @@ def _noqa_notices(
     )
 
 
-def _run_ruff(*arguments: str) -> subprocess.CompletedProcess[str]:
+def _run_ruff(
+    *arguments: str, cwd: Path | None = None
+) -> subprocess.CompletedProcess[str]:
     environment = os.environ.copy()
     for name in ("RUFF_FIX", "RUFF_FIX_ONLY", "RUFF_OUTPUT_FILE", "RUFF_OUTPUT_FORMAT"):
         environment.pop(name, None)
@@ -118,6 +130,7 @@ def _run_ruff(*arguments: str) -> subprocess.CompletedProcess[str]:
             capture_output=True,
             check=False,
             env=environment,
+            cwd=cwd,
             text=True,
         )
     except OSError as error:
@@ -171,7 +184,10 @@ def _display_path(path: Path) -> Path:
 
 
 def _included_files(
-    files: Sequence[Path], configuration_arguments: Sequence[str]
+    files: Sequence[Path],
+    configuration_arguments: Sequence[str],
+    *,
+    cwd: Path | None = None,
 ) -> tuple[Path, ...]:
     included_paths: set[Path] = set()
     for targets in _path_batches(files):
@@ -181,7 +197,8 @@ def _included_files(
             "--force-exclude",
             *configuration_arguments,
             "--",
-            *(str(path) for path in targets),
+            *(str(path.resolve()) for path in targets),
+            cwd=cwd,
         )
         included_paths.update(
             Path(line).resolve() for line in completed.stdout.splitlines()
@@ -198,6 +215,10 @@ def _path_batches(
     )
 
 
-def _resolved_settings(file: Path, extra_arguments: Sequence[str] = ()) -> RuffSettings:
-    completed = _run_ruff("check", "--show-settings", *extra_arguments, "--", str(file))
+def _resolved_settings(
+    file: Path, extra_arguments: Sequence[str] = (), *, cwd: Path | None = None
+) -> RuffSettings:
+    completed = _run_ruff(
+        "check", "--show-settings", *extra_arguments, "--", str(file.resolve()), cwd=cwd
+    )
     return parse_settings(completed.stdout)
