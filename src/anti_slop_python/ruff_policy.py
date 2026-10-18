@@ -23,6 +23,15 @@ _RECOMMENDED_RULES = (
     "ANN205",
     "ANN206",
     "ANN401",
+    "ASYNC210",
+    "ASYNC212",
+    "ASYNC220",
+    "ASYNC221",
+    "ASYNC222",
+    "ASYNC230",
+    "ASYNC240",
+    "ASYNC250",
+    "ASYNC251",
 )
 _RECOMMENDED_BANNED_APIS = {
     "mock.patch": "Avoid patching state. Pass the dependency explicitly instead.",
