@@ -136,6 +136,11 @@ policy by default:
 | [`ANN001`, `ANN002`, `ANN003`](https://docs.astral.sh/ruff/rules/#flake8-annotations-ann) | Require annotations on function parameters, including `*args` and `**kwargs` |
 | [`ANN201`, `ANN202`, `ANN204`, `ANN205`, `ANN206`](https://docs.astral.sh/ruff/rules/#flake8-annotations-ann) | Require return annotations on public/private functions and special, static, and class methods |
 | [`ANN401`](https://docs.astral.sh/ruff/rules/any-type/) | Reject `Any` on function arguments |
+| [`ASYNC210`](https://docs.astral.sh/ruff/rules/blocking-http-call-in-async-function/), [`ASYNC212`](https://docs.astral.sh/ruff/rules/blocking-http-call-httpx-in-async-function/) | Reject recognized blocking HTTP calls in async functions |
+| [`ASYNC220`](https://docs.astral.sh/ruff/rules/create-subprocess-in-async-function/), [`ASYNC221`](https://docs.astral.sh/ruff/rules/run-process-in-async-function/), [`ASYNC222`](https://docs.astral.sh/ruff/rules/wait-for-process-in-async-function/) | Reject blocking subprocess creation, execution, and waits in async functions |
+| [`ASYNC230`](https://docs.astral.sh/ruff/rules/blocking-open-call-in-async-function/), [`ASYNC240`](https://docs.astral.sh/ruff/rules/blocking-path-method-in-async-function/) | Reject blocking file opens and recognized filesystem calls in async functions |
+| [`ASYNC250`](https://docs.astral.sh/ruff/rules/blocking-input-in-async-function/) | Reject blocking console input in async functions |
+| [`ASYNC251`](https://docs.astral.sh/ruff/rules/blocking-sleep-in-async-function/) | Reject `time.sleep()` in async functions |
 | [`F403`](https://docs.astral.sh/ruff/rules/undefined-local-with-import-star/) | Require named imports instead of wildcard imports |
 | [`C901`](https://docs.astral.sh/ruff/rules/complex-structure/) | Cyclomatic complexity of at most 10 |
 | [`PLR0915`](https://docs.astral.sh/ruff/rules/too-many-statements/) | At most 40 statements per function or method |
@@ -148,7 +153,7 @@ equivalent to:
 
 ```toml
 [tool.ruff.lint]
-extend-select = ["ANN", "BLE001", "C901", "E722", "F403", "PLR0915", "TID251"]
+extend-select = ["ANN", "ASYNC2", "BLE001", "C901", "E722", "F403", "PLR0915", "TID251"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
@@ -364,6 +369,62 @@ The native rules still run on that file, and ignored annotation rules produce
 policy notices. This policy does not require explicit annotations on `self`
 or `cls`. Ruff's annotation-specific settings remain project-controlled.
 
+### ASYNC2 — Keep blocking calls off the event loop
+
+A blocking call inside `async def` stops other tasks on the same event loop
+from making progress. In a web service, one request can delay unrelated
+requests even when the service has spare CPU capacity. The `ASYNC2` rules
+catch recognized blocking HTTP, subprocess, filesystem, console input, and
+sleep calls.
+
+The diagnostic examples use asyncio. Keep the active async framework when
+applying a fix; Trio and AnyIO code need compatible APIs.
+
+For example, this function blocks its event loop for one second:
+
+```python
+import time
+
+
+async def retry_delay() -> None:
+    time.sleep(1)
+```
+
+Use an async operation that yields control while it waits:
+
+```python
+import asyncio
+
+
+async def retry_delay() -> None:
+    await asyncio.sleep(1)
+```
+
+Use an async client for network I/O. When a blocking I/O library must remain,
+run the operation in a worker thread, for example
+`await asyncio.to_thread(blocking_function, argument)`. Pass the function
+and its arguments; calling it before passing it to `to_thread` still blocks
+the loop. Keep resource ownership and the library's thread-safety requirements
+intact. Threads are not a general solution for CPU-heavy Python work; use a
+process or a separate worker for that work. See the
+[`asyncio.to_thread` documentation](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread).
+
+[FastAPI runs ordinary `def` endpoints and dependencies in a thread pool](https://fastapi.tiangolo.com/async/#very-technical-details).
+That boundary applies when FastAPI calls them. A synchronous helper called
+directly from an async endpoint still runs on the event-loop thread. Changing
+a helper's declaration or moving its call into another coroutine does not
+remove blocking work.
+
+The same issue applies to a background consumer sharing the service's event
+loop. `asyncio.create_task()` schedules a coroutine on that loop; it does not
+move a Kafka consumer or other blocking work into another thread or process.
+
+These checks do not trace general call chains through synchronous helpers,
+identify arbitrary Kafka or other unknown client APIs, or measure CPU cost.
+A clean lint result does not establish that the event loop stays responsive.
+Add runtime concurrency tests and event-loop lag monitoring in the consuming
+service to check those paths; `anti-slop-python` does not run or configure them.
+
 ### F403 — Keep imports and public exports explicit
 
 Wildcard imports hide which module provides a name. They can also hide unused
@@ -495,6 +556,11 @@ When reading diagnostics through the Python API, `message` contains the summary;
 | Rule | Guidance |
 | --- | --- |
 | `ANN` | Declare real parameter and return types; preserve existing type information |
+| `ASYNC210`, `ASYNC212` | Keep HTTP waits off the event loop; use an async client or offload required blocking I/O |
+| `ASYNC220`, `ASYNC221`, `ASYNC222` | Use async subprocess APIs and await completion without blocking the loop |
+| `ASYNC230`, `ASYNC240` | Use async file operations or offload the complete blocking operation to a worker thread |
+| `ASYNC250` | Move interactive input outside async service work or read it in a worker thread |
+| `ASYNC251` | Replace blocking sleep with the async framework's awaited sleep |
 | `SPY001` | Describe and validate the actual data instead of hiding `Any` |
 | `SPY002` | Use explicit interfaces and preserve missing-value behavior |
 | `SPY003` | Separate production responsibilities or group tests by behavior; preserve related code and test coverage |
@@ -550,6 +616,9 @@ They do not perform scope-aware name resolution, type checking, cross-file
 analysis, suppressions, or autofixes. Native configuration currently covers only
 module-size limits and additional test-file patterns. Ruff-backed checks use
 the project's effective Ruff configuration and suppression behavior.
+The async blocking checks recognize specific APIs; they do not prove that a
+service's event loop remains responsive. See [ASYNC2](#async2--keep-blocking-calls-off-the-event-loop)
+for the supported calls, execution boundaries, and limits.
 
 ## Releases
 

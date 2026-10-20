@@ -57,6 +57,28 @@ def test_returns_zero_when_no_violations(
     assert capsys.readouterr().out == ""
 
 
+def test_async_blocking_finding_explains_impact_and_repair(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    source = tmp_path / "consumer.py"
+    original = "import time\n\nasync def consume() -> None:\n    time.sleep(1)\n"
+    source.write_text(original)
+
+    exit_code = main([str(source)])
+    captured = capsys.readouterr()
+
+    assert exit_code == 1
+    assert captured.out.startswith(
+        f"{source}:4:5 ASYNC251 Async functions should not call `time.sleep`\n"
+    )
+    assert "event-loop thread" in captured.out
+    assert "await asyncio.sleep(delay)" in captured.out
+    assert "let task cancellation propagate" in captured.out
+    assert "asyncio.create_task does not offload blocking work" in captured.out
+    assert captured.err == ""
+    assert source.read_text() == original
+
+
 @pytest.mark.parametrize("lines", [500, 501])
 def test_module_size_controls_exit_status(
     tmp_path: Path, capsys: pytest.CaptureFixture[str], lines: int

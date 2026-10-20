@@ -9,7 +9,78 @@ _ANNOTATION_GUIDANCE = (
     "Do not use Any, broad object types, or casts merely to satisfy this check.",
 )
 
+_ASYNC_BLOCKING_IMPACT = (
+    "This call can block the event-loop thread, stalling other requests and tasks."
+)
+_ASYNC_FRAMEWORK_GUIDANCE = (
+    "Use APIs from the active async framework; the examples below are for asyncio."
+)
+_ASYNC_BLOCKING_SHORTCUT = (
+    "Do not hide it in a helper or async wrapper; asyncio.create_task does not"
+    " offload blocking work."
+)
+_ASYNC_HTTP_GUIDANCE = (
+    _ASYNC_BLOCKING_IMPACT,
+    _ASYNC_FRAMEWORK_GUIDANCE,
+    "Use an async HTTP client and await the request.",
+    "If the client must stay synchronous, await asyncio.to_thread(...) for the"
+    " blocking operation; check client thread safety.",
+    "Preserve timeouts, status checks, response handling, and client cleanup.",
+    _ASYNC_BLOCKING_SHORTCUT,
+)
+_ASYNC_PROCESS_GUIDANCE = (
+    _ASYNC_BLOCKING_IMPACT,
+    _ASYNC_FRAMEWORK_GUIDANCE,
+    "Use await asyncio.create_subprocess_exec(...) to start the process.",
+    "Use asyncio.create_subprocess_shell only when shell semantics are required.",
+    "Await communicate() or wait() when completion is required.",
+    "Preserve arguments, exit checks, output handling, timeouts, and cleanup.",
+    _ASYNC_BLOCKING_SHORTCUT,
+)
+_ASYNC_FILE_GUIDANCE = (
+    _ASYNC_BLOCKING_IMPACT,
+    _ASYNC_FRAMEWORK_GUIDANCE,
+    "Use an async file API, or await asyncio.to_thread(...) for the complete"
+    " file operation.",
+    "Keep opening, reading or writing, and closing in the offloaded operation;"
+    " offloading only open() leaves later I/O on the event loop.",
+    "Preserve file modes, encoding, error behavior, and resource cleanup.",
+    _ASYNC_BLOCKING_SHORTCUT,
+)
+
 _GUIDANCE: dict[str, tuple[str, ...]] = {
+    "ASYNC210": _ASYNC_HTTP_GUIDANCE,
+    "ASYNC212": _ASYNC_HTTP_GUIDANCE,
+    "ASYNC220": _ASYNC_PROCESS_GUIDANCE,
+    "ASYNC221": _ASYNC_PROCESS_GUIDANCE,
+    "ASYNC222": (
+        _ASYNC_BLOCKING_IMPACT,
+        _ASYNC_FRAMEWORK_GUIDANCE,
+        "Await wait() or communicate() on an existing asyncio subprocess.",
+        "For a child managed by a synchronous API, await asyncio.to_thread(...)"
+        " around the blocking wait; do not start a replacement process.",
+        "Preserve child identity, exit status, error handling, and cleanup.",
+        _ASYNC_BLOCKING_SHORTCUT,
+    ),
+    "ASYNC230": _ASYNC_FILE_GUIDANCE,
+    "ASYNC240": _ASYNC_FILE_GUIDANCE,
+    "ASYNC250": (
+        _ASYNC_BLOCKING_IMPACT,
+        _ASYNC_FRAMEWORK_GUIDANCE,
+        "Read interactive input outside the event loop, or await"
+        " asyncio.to_thread(input, ...) when a worker thread may wait for input.",
+        "Cancelling the await does not stop an input call already running in a thread.",
+        "Preserve prompt and EOF behavior.",
+        _ASYNC_BLOCKING_SHORTCUT,
+    ),
+    "ASYNC251": (
+        _ASYNC_BLOCKING_IMPACT,
+        _ASYNC_FRAMEWORK_GUIDANCE,
+        "Use await asyncio.sleep(delay) to yield during the delay.",
+        "Keep the intended delay and let task cancellation propagate;"
+        " do not busy-wait.",
+        _ASYNC_BLOCKING_SHORTCUT,
+    ),
     "SPY001": (
         "Describe the actual data with concrete types, TypedDict, or a dataclass.",
         "Validate untrusted data at the boundary; narrow unknown values before use.",
